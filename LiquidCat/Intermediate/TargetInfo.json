@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "LiquidCat",
+			"Path": "..\\Source\\LiquidCat.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "LiquidCatEditor",
+			"Path": "..\\Source\\LiquidCatEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
