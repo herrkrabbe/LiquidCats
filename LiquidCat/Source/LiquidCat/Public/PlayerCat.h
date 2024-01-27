@@ -10,6 +10,8 @@
 #include "EnhancedPlayerInput.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 #include "PlayerCat.generated.h"
 
 /**
@@ -32,14 +34,12 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+
 	//Actions
 	UFUNCTION(BlueprintCallable, Category = InputSys)
 	void MoveXAxis(const FInputActionValue& val);
 	UFUNCTION(BlueprintCallable, Category = InputSys)
 	void MoveXAxisCompleted(const FInputActionValue& val);
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
-	class UPaperFlipbookComponent* PlayerSprite;
 
 
 
