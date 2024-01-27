@@ -43,6 +43,7 @@ public:
 	//Camera
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSprite")
 	class UPaperFlipbookComponent* PlayerSprite;
+	UPROPERTY()
 
 
 
