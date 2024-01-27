@@ -11,7 +11,6 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Camera/CameraComponent.h"
 #include "PlayerCat.generated.h"
 
 /**
@@ -40,6 +39,10 @@ public:
 	void MoveXAxis(const FInputActionValue& val);
 	UFUNCTION(BlueprintCallable, Category = InputSys)
 	void MoveXAxisCompleted(const FInputActionValue& val);
+
+	//Camera
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerSprite")
+	class UPaperFlipbookComponent* PlayerSprite;
 
 
 

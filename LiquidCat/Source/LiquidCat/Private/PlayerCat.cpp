@@ -9,20 +9,6 @@ APlayerCat::APlayerCat()
 
 	PlayerSprite = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("PlayerSprite"));
 	SetRootComponent(PlayerSprite);
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
-	SpringArm->bDoCollisionTest = false;
-	SpringArm->SetUsingAbsoluteRotation(true);
-
-	SpringArm->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
-	SpringArm->TargetArmLength = 1000.f;
-	SpringArm->bEnableCameraLag = false;
-	SpringArm->CameraLagSpeed = 5.f;
-
-	SpringArm->SetupAttachment(PlayerSprite);
-
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	Camera->bUsePawnControlRotation = false;
-	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 }
 
 void APlayerCat::BeginPlay()
@@ -35,7 +21,6 @@ void APlayerCat::BeginPlay()
 		UEnhancedInputLocalPlayerSubsystem* subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
 		if (subsystem) {
 			subsystem->AddMappingContext(IMCPlayerInput, 0);
-
 		}
 	}
 }
@@ -43,8 +28,10 @@ void APlayerCat::BeginPlay()
 void APlayerCat::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (Speed) {
-		PlayerSprite->AddRelativeLocation(FVector(DeltaX, DeltaY, 0.f) * Speed);
+	if (Speed)
+	{
+		this->AddMovementInput(FVector(DeltaX, DeltaY, 0), Speed);
+		//PlayerSprite->AddRelativeLocation(FVector(DeltaX, DeltaY, 0.f) * Speed);
 	}
 
 }
@@ -63,7 +50,6 @@ void APlayerCat::SetupPlayerInputComponent(class UInputComponent* PlayerInputCom
 void APlayerCat::MoveXAxis(const FInputActionValue& val)
 {
 	const float getVal = val.Get<float>();
-	GEngine->AddOnScreenDebugMessage(-1, 12.f, FColor::Red, FString::Printf(TEXT("X val : %f "), getVal));
 	if (getVal)
 	{
 		DeltaX = getVal;
@@ -73,9 +59,8 @@ void APlayerCat::MoveXAxis(const FInputActionValue& val)
 void APlayerCat::MoveXAxisCompleted(const FInputActionValue& val)
 {
 	const float getVal = val.Get<float>();
-	GEngine->AddOnScreenDebugMessage(-1, 12.f, FColor::Red, FString::Printf(TEXT("Reset ex value  : %f "), getVal));
 	if (getVal)
 	{
-		Speed = 0;
+		DeltaX = 0;
 	}
 }
